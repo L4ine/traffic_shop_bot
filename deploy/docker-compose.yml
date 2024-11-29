@@ -1,0 +1,27 @@
+services:
+  traffic_shop_bot:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: traffic_shop_bot
+    restart: on-failure
+    env_file: .env
+    depends_on:
+      - traffic_shop_bot_db
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - ../src/db/migrations:/opt/app/db/migrations
+
+  traffic_shop_bot_db:
+    container_name: traffic_shop_bot_db
+    image: postgres
+    env_file: .env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - traffic_shop_bot_db_data:/var/lib/postgresql/data
+
+volumes:
+  traffic_shop_bot_db_data:
+    driver: local
