@@ -23,7 +23,7 @@ async def get_start_menu() -> types.InlineKeyboardMarkup:
 	builder.row(
 		types.InlineKeyboardButton(
 			text=HELP_BUTTON,
-			callback_data="cb_help"
+			url="https://telegra.ph/Nastrojka-konfiguracii-11-29"
 		)
 	)
 	builder.row(
@@ -70,6 +70,12 @@ async def get_pay_menu(
 		types.InlineKeyboardButton(
 			text=CHECK_BUTTON,
 			callback_data=f"cb_check_{payment_id}"
+		)
+	)
+	builder.row(
+		types.InlineKeyboardButton(
+			text=BACK_BUTTON,
+			callback_data='cb_back_pay'
 		)
 	)
 

@@ -31,6 +31,18 @@ async def buy(callback: types.CallbackQuery):
 		return callback.answer(ERROR_TEXT)
 
 
+@router.callback_query(F.data == 'cb_back_buy')
+async def bsck_buy(callback: types.CallbackQuery):
+	try:
+		await callback.message.edit_text(
+			BUY_TEXT,
+			reply_markup=await get_buy_menu()
+		)
+	except Exception as exc:
+		logging.error(exc)
+		return callback.answer(ERROR_TEXT)
+
+
 @router.callback_query(F.data.startswith('cb_buy_'))
 async def pay(callback: types.CallbackQuery):
 	try:
@@ -88,7 +100,7 @@ async def check_bill(callback: types.CallbackQuery):
 				days=payment.period * 30
 			)
 		else:
-			await add_xray_client(
+			client = await add_xray_client(
 				tg_id=callback.from_user.id,
 				days=payment.period * 30
 			)

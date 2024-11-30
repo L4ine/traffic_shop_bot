@@ -27,8 +27,6 @@ async def xray_client_exists(tg_id: int) -> str | bool:
 		if user['email'] == tg_id:
 			return user
 
-	return False
-
 
 async def add_xray_client(tg_id: int, days: int):
 	tg_id = str(tg_id)
@@ -68,7 +66,9 @@ async def add_xray_client(tg_id: int, days: int):
 
 	async with aiohttp.ClientSession() as session:
 		async with session.post(url, headers=headers, data=encoded_data) as response:
-			return response.status
+			if response.status == 200:
+				client = await xray_client_exists(tg_id)
+				return client
 
 
 async def update_xray_duration(tg_id: int, client: dict, days: int):
