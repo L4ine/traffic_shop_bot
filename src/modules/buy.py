@@ -1,6 +1,7 @@
 import logging
 
 from aiogram import Router, types, F
+from aiogram.fsm.context import FSMContext
 
 from data.config import TARIFFS
 from data.strings import BUY_TEXT, PAY_TEXT, BILL_TEXT, \
@@ -77,8 +78,15 @@ async def pay(callback: types.CallbackQuery):
 
 
 @router.callback_query(F.data.startswith('cb_check_'))
-async def check_bill(callback: types.CallbackQuery):
+async def check_bill(callback: types.CallbackQuery, state: FSMContext):
 	try:
+		data = await state.get_data()
+
+		if data.get('is_checking'):
+			return callback.answer(ERROR_PAY_TEXT)
+
+		await state.update_data(is_checking=True)
+
 		payment_id = callback.data.split('_')[-1]
 		payment = await get_payment(payment_id)
 		status = await check_payment(payment_id)
@@ -118,6 +126,8 @@ async def check_bill(callback: types.CallbackQuery):
 			),
 			reply_markup=await get_back_menu()
 		)
+
+		await state.clear()
 
 	except Exception as exc:
 		logging.error(exc)

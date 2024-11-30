@@ -46,7 +46,7 @@ async def back(callback: types.CallbackQuery):
 
 
 @router.callback_query(F.data == 'cb_help')
-async def back(callback: types.CallbackQuery):
+async def help(callback: types.CallbackQuery):
 	try:
 		await callback.message.edit_text(
 			HELP_TEXT,
