@@ -92,6 +92,7 @@ async def check_bill(callback: types.CallbackQuery, state: FSMContext):
 		status = await check_payment(payment_id)
 
 		if not status:
+			await state.clear()
 			return callback.answer(ERROR_PAY_TEXT)
 
 		await update_payment_status(
@@ -131,4 +132,5 @@ async def check_bill(callback: types.CallbackQuery, state: FSMContext):
 
 	except Exception as exc:
 		logging.error(exc)
+		await state.clear()
 		return callback.answer(ERROR_TEXT)
