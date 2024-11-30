@@ -75,7 +75,7 @@ async def get_pay_menu(
 	builder.row(
 		types.InlineKeyboardButton(
 			text=BACK_BUTTON,
-			callback_data='cb_back_pay'
+			callback_data='cb_back_buy'
 		)
 	)
 
