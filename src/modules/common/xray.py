@@ -48,8 +48,9 @@ async def add_xray_client(tg_id: int, days: int):
 				{
 					"id": str(uuid.uuid4()),
 					"flow": "xtls-rprx-vision",
+					"level": 0,
 					"email": tg_id,
-					"limitIp": 0,
+					"limitIp": 2,
 					"totalGB": 0,
 					"expiryTime": timestamp,
 					"enable": True,
@@ -95,8 +96,9 @@ async def update_xray_duration(tg_id: int, client: dict, days: int):
 				{
 					"id": client['id'],
 					"flow": "xtls-rprx-vision",
+					"level": 0,
 					"email": tg_id,
-					"limitIp": 0,
+					"limitIp": 2,
 					"totalGB": 0,
 					"expiryTime": timestamp,
 					"enable": True,
