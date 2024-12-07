@@ -21,6 +21,18 @@ async def create_payment(amount: str, description: str):
 			'currency': 'RUB'
 		},
 
+		'receipt': {
+			'items': {
+				'description': f'{description}',
+				'amount': {
+					'value': amount,
+					'currency': 'RUB'
+				},
+				'vat_code': 1,
+				'quantity': 1
+			}
+		},
+
 		'confirmation': {
 			'type': 'redirect',
 			'return_url': f'https://t.me/{bot_username.username}'
