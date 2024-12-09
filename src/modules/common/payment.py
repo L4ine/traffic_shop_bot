@@ -21,7 +21,7 @@ async def create_payment(amount: str, description: str):
 			'currency': 'RUB'
 		},
 
-		'receipt': {
+		'receipt': [{
 			'items': {
 				'description': f'{description}',
 				'amount': {
@@ -31,7 +31,7 @@ async def create_payment(amount: str, description: str):
 				'vat_code': 1,
 				'quantity': 1
 			}
-		},
+		}],
 
 		'confirmation': {
 			'type': 'redirect',
